@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="estate_property_view_tree" model="ir.ui.view">
-        <field name="name">estate.property.view.tree</field>
+    <record id="estate_property_view_list" model="ir.ui.view">
+        <field name="name">estate.property.view.list</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="">
+            <list string="">
                 <field name="name" />
-                <field name="description" />
-            </tree>
+                <field name="postcode" />
+                <field name="bedrooms" />
+                <field name="living_area" />
+                <field name="expected_price" />
+                <field name="selling_price" />
+                <field name="date_availability" />
+            </list>
         </field>
     </record>
 
@@ -17,11 +22,22 @@
         <field name="arch" type="xml">
             <form string="">
                 <sheet>
-
-
+                    <div class="oe_title">
+                        <div class="oe_edit_only">
+                            <label for="name"/>
+                        </div>
+                        <h1 class="mb32">
+                            <field name="name" class="mb16"/>
+                        </h1>
+                    </div>
                     <group>
                         <group>
-                            <field name="name" />
+                            <field name="postcode" />
+                            <field name="date_availability" />
+                        </group>
+                        <group>
+                            <field name="expected_price" />
+                            <field name="selling_price" />
                         </group>
 
                     </group>
@@ -30,7 +46,12 @@
                         <page name="description" string="Description">
                             <group>
                                 <field name="description" />
+                                <field name="bedrooms" />
                             </group>
+                        </page>
+
+                        <page name="offer" string="Offer">
+                            
                         </page>
                     </notebook>
 
@@ -40,15 +61,9 @@
     </record>
 
     <record id="estate_property_action" model="ir.actions.act_window">
-        <field name="name">Estate Property</field>
+        <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
-
-    <menuitem
-        id="parent_menu"
-        name="Real Estate"
-        action="estate_property_action"
-        sequence="10"/>
 </odoo>
 
