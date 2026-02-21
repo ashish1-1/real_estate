@@ -32,12 +32,6 @@ class EstateProperty(models.Model):
 
     garden_orientation = fields.Selection([('north','North'),('south','South'),('east','East'),('west','West')], string="Garden Orientation")
 
-    property_type = fields.Selection([
-        ('apartment', 'Apartment'),
-        ('house', 'House'),
-        ('villa', 'Villa')
-    ], string="Property Type")
-
     active = fields.Boolean(default=True)
 
     state = fields.Selection(
