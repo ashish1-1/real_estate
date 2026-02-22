@@ -18,5 +18,25 @@
                     action="estate_property_action"
                     parent="advertisements_menu"
                     sequence="10"/>
+
+            <menuitem
+                id="setting_menu"
+                name="Settings"
+                parent="parent_menu"
+                sequence="20"/>
+
+                <menuitem
+                    id="property_type_menu"
+                    name="Property Types"
+                    action="action_estate_property_type_view"
+                    parent="setting_menu"
+                    sequence="10"/>
+
+                <menuitem
+                    id="property_tag_menu"
+                    name="Property Tags"
+                    action="action_estate_property_tag"
+                    parent="setting_menu"
+                    sequence="20"/>
     </data>
 </odoo>
