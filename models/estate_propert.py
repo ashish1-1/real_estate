@@ -57,6 +57,11 @@ class EstateProperty(models.Model):
 
     best_price = fields.Float(string="Best Offer", compute="_compute_best_price")
 
+    _check_expected_price = models.Constraint(
+        'CHECK(expected_price >= 0)',
+        'Expected price must be positive.'
+    )
+
     @api.depends('living_area', 'garden_area')
     def _compute_total_area(self):
         for record in self:
@@ -65,10 +70,7 @@ class EstateProperty(models.Model):
     @api.depends('offer_ids.price')
     def _compute_best_price(self):
         for record in self:
-            if record.offer_ids:
-                record.best_price = max(record.offer_ids.mapped('price'))
-            else:
-                record.best_price = 0.0
+            record.best_price = max(record.offer_ids.mapped('price')) if record.offer_ids else 0.0
 
     @api.onchange('garden')
     def _onchange_enabled_garden(self):
