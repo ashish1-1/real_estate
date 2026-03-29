@@ -8,6 +8,7 @@ _logger = logging.getLogger(__name__)
 class EstatePropertyOffer(models.Model):
     _name = 'estate.property.offer'
     _description = 'Estate Property Offer'
+    _order = 'price desc'
 
     price = fields.Float()
     status = fields.Selection(
@@ -42,8 +43,11 @@ class EstatePropertyOffer(models.Model):
             if offer_ids:
                 raise UserError("Another offer has already been accepted for this property.")
             if offer.partner_id:
-                offer.property_id.buyer_id = offer.partner_id.id
-                offer.property_id.selling_price = offer.price
+                offer.property_id.write(dict(
+                    state='offer_accepted',
+                    buyer_id=offer.partner_id.id,
+                    selling_price=offer.price,
+                ))
                 offer.status = 'accepted'
 
     def action_refuse(self):
